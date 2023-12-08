@@ -27,8 +27,17 @@ Endemicty and rarity
 }
 \examples{
 
-victoria <- cpi(data=gbif, habitat='habitat',
-species='species', area='area', iucn='iucn', hname='Lake Victoria')
+\dontrun{
+library(sf)
+
+data('gbif')
+
+gbif
+
+victoria <- cpi(data=gbif, habitat='wb',
+species='species', area='sa', iucn='IUCN', hname='Lake Victoria')
+}
+
 
 
 }

@@ -3,7 +3,6 @@
 export(clean_iucn)
 export(clean_names)
 export(cpi)
-export(hello)
 export(rareend)
 export(rarity)
 importFrom(graphics,barplot)

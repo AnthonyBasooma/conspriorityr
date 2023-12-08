@@ -20,7 +20,7 @@
 #'
 #' gbif
 #'
-#' rarity_lates <- rarity(data= gbif, habitat='lakes',
+#' rarity_lates <- rarity(data= gbif, habitat='wb',
 #' species='species', sp='Lates niloticus')
 #'
 #' }
@@ -34,11 +34,11 @@ rarity <- function(data, habitat, species, sp){
     data = data
   }
 
-  habc <- data[, habitat]
+  habc <- unlist(data[, habitat])
 
   #cls <- clean_names(spp)
 
-  spdata <- data[,species]
+  spdata <- unlist(data[,species])
 
   idx <- which(spdata==sp)
 

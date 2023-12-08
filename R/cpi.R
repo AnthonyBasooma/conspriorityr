@@ -35,8 +35,8 @@
 #'
 #' gbif
 #'
-#' victoria <- cpi(data=gbif, habitat='lakes',
-#' species='species', area='area', iucn='iucn')
+#' kyoga <- cpi(data=gbif, habitat='wb',
+#' species='species', area='sa', iucn='IUCN', plot=NULL)
 #'
 #' }
 #'
@@ -48,7 +48,7 @@ cpi <- function(data, habitat, species, area, iucn, plot=NULL){
   }else{
     data
   }
-  habc <- data[,habitat]
+  habc <- unlist(data[,habitat])
 
   uniqe_habitat <- unique(habc)
   cpifinal <- length(uniqe_habitat)

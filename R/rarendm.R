@@ -19,8 +19,8 @@
 #'
 #' gbif
 #'
-#' victoria <- cpi(data=gbif, habitat='lakes',
-#' species='species', area='area', iucn='iucn', hname='Lake Victoria')
+#' victoria <- cpi(data=gbif, habitat='wb',
+#' species='species', area='sa', iucn='IUCN', hname='Lake Victoria')
 #'}
 #'
 #'
@@ -38,13 +38,13 @@ rareend <- function(data, habitat, species, area, iucn, hname){
     data
   }
 
-  habc <- data[,habitat]
+  habc <- unlist(data[,habitat])
 
-  spc <- data[,species]
+  spc <- unlist(data[,species])
 
-  iucnc <- data[,iucn]
+  iucnc <- unlist(data[,iucn])
 
-  areac <- data[,area]
+  areac <- unlist(data[,area])
 
   if(!is(areac, 'numeric')) stop('Only numeric values are accepted for habitat area')
 

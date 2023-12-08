@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_names.R
 \name{clean_names}
 \alias{clean_names}
-\title{Checks the species names to match databses such as FishBase.}
+\title{Checks the species names to match databses such as FishBase}
 \usage{
 clean_names(species)
 }
@@ -13,7 +13,7 @@ clean_names(species)
 string
 }
 \description{
-Checks the species names to match databses such as FishBase.
+Checks the species names to match databses such as FishBase
 }
 \examples{
 

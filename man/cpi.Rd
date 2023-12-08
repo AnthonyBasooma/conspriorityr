@@ -2,12 +2,13 @@
 % Please edit documentation in R/cpi.R
 \name{cpi}
 \alias{cpi}
-\title{Conservation}
+\title{Computes conservation priority scores for more than one habitat based on Basooma et al., 2022}
 \usage{
 cpi(data, habitat, species, area, iucn, plot = NULL)
 }
 \arguments{
-\item{data}{A dataframe with all the details, of which the habitat names, surface, species names and threat status should be provided.}
+\item{data}{A data frame with all the details of habitats, surface area,
+species names and threat status should be provided.}
 
 \item{habitat}{A column with the different habitat names considered.}
 
@@ -17,16 +18,36 @@ cpi(data, habitat, species, area, iucn, plot = NULL)
 
 \item{iucn}{A column with the speciea threat classes or category such as vulnerable.}
 
-\item{plot}{To visualise the a bar graph of priority score for each habitat.}
+\item{plot}{To visualize the a bar graph of priority score for each habitat.}
 }
 \value{
 Dataframe with species scores
 }
 \description{
-Conservation
+Computes conservation priority scores for more than one habitat based on Basooma et al., 2022
+}
+\details{
+The priority index is a novel conservation metric which weights the waterbody or habitat depending
+on the species richness and rareness among the water bodies considered.
+In addition, the species International Union Conservation for Nature status
+is weighted where a critically endangered is weighted 5, endangered = 4,
+vulnerable = 3, near threatened = 2, least concern = 1. Based on the assumption
+by IUCN that both data deficient and not evaluated should considered threatened
+until their status is established, all their weights was 5.
+The surface area of the water body or habitat considered in the computation.
 }
 \examples{
 
-victoria <- cpi(data=gbif, habitat='habitat', species='species', area='area', iucn='iucn')
+\dontrun{
+
+data('gbif')
+
+gbif
+
+kyoga <- cpi(data=gbif, habitat='wb',
+species='species', area='sa', iucn='IUCN', plot=NULL)
+
+}
+
 
 }
