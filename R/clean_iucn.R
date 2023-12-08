@@ -1,14 +1,9 @@
-#' Checks and standardizes species threat status .
+#' @title Checks and standardizes species threat status to match the analysis protocol.
 #'
-#' @param iucn The species International Union for C.
+#' @param iucn The species International Union for Conservation Redlist. Internal use not exported
 #'
 #' @return string
 #'
-#' @export
-#'
-#' @examples
-#'
-#' sp <- clean_iucn(iucn='cr')
 #'
 clean_iucn <- function(iucn){
 

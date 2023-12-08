@@ -23,19 +23,36 @@ Computes conservation based habitat scores to aid in preferential selection for 
 
 ## Installation
 
-You can install the development version of conspriorityr like so:
+Install the recent version from Github
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+#For windows operating system
+#
+install.packages('remotes)
+
+install_github("AnthonyBasooma/conspriorityr")
+
+#Mac
+remotes::install_github("AnthonyBasooma/conspriorityr@HEAD")
+
 ```
 
-## Example
+## Conservaation 
 
-This is a basic example which shows you how to solve a common problem:
+Prioritizing the conservation of waterbodies in the Lake Kyoga system in Uganda
 
-```{r example}
-library(conspriorityr)
+
+```{r libraries}
+
+library(conspriorityr) #compute priority scores
+library(sf) #to handle the vector data/maps
+
 ## basic example code
+
+
+
+
+
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:

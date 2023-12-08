@@ -18,18 +18,31 @@ cost-effective to manage in case of limited resources.
 
 ## Installation
 
-You can install the development version of conspriorityr like so:
+Install the recent version from Github
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+#For windows operating system
+#
+install.packages('remotes)
+
+install_github("AnthonyBasooma/conspriorityr")
+
+#Mac
+remotes::install_github("AnthonyBasooma/conspriorityr@HEAD")
 ```
 
-## Example
+## Conservaation
 
-This is a basic example which shows you how to solve a common problem:
+Prioritizing the conservation of waterbodies in the Lake Kyoga system in
+Uganda
 
 ``` r
-library(conspriorityr)
+
+library(conspriorityr) #compute priority scores
+library(sf) #to handle the vector data/maps
+#> Warning: package 'sf' was built under R version 4.3.1
+#> Linking to GEOS 3.11.2, GDAL 3.6.2, PROJ 9.2.0; sf_use_s2() is TRUE
+
 ## basic example code
 ```
 
