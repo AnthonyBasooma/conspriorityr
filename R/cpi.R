@@ -1,21 +1,27 @@
-#' Title
+#' Conservation
 #'
-#' @param data
-#' @param habitat
-#' @param species
-#' @param area
-#' @param iucn
-#' @param plot
+#' @param data A dataframe with all the details, of which the habitat names, surface, species names and threat status should be provided.
+#' @param habitat A column with the different habitat names considered.
+#' @param species A column with all species names in the habitat.
+#' @param area The habitat area or measure of coverage that can used for conservation selection.
+#' @param iucn A column with the speciea threat classes or category such as vulnerable.
+#' @param plot To visualise the a bar graph of priority score for each habitat.
 #'
-#' @return
+#' @importFrom sf st_drop_geometry
+#' @importFrom graphics barplot
+#' @importFrom methods is
+#'
+#' @return Dataframe with species scores
 #' @export
 #'
 #' @examples
+#'
+#' victoria <- cpi(data=gbif, habitat='habitat', species='species', area='area', iucn='iucn')
+#'
 cpi <- function(data, habitat, species, area, iucn, plot=NULL){
 
-
   if(is(data,'sf')){
-    data <- data %>% st_drop_geometry()
+    data <- st_drop_geometry(data)
   }else{
     data
   }
@@ -45,36 +51,6 @@ cpi <- function(data, habitat, species, area, iucn, plot=NULL){
 }
 
 
-#=========000
-rarity <- function(data, habitat, species, sp){
-
-  if(is(data,'sf')){
-    data <- data %>% st_drop_geometry()
-  }else{
-    data = data
-  }
-
-  habc <- data[, habitat]
-
-  #cls <- clean_names(spp)
-
-  spdata <- data[,species]
-
-  idx <- which(spdata==sp)
-
-  habA <- length(unique(habc[idx]))
-
-  tothab <- length(unique(habc))
-
-  ssr <- 1-(habA/tothab)
-
-  return(ssr)
-}
 
 
-plt = function(ht, names){
-  cpipol <- cpipol[order(cpipol$ht,decreasing = FALSE),]
-  barplot(cpipol$ht,names.arg = cpipol$names, las=2, horiz = TRUE, cex.names = 0.6,
-          xlab = "Priority scores", ylab = "Sites")
 
-}

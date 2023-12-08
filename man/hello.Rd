@@ -9,6 +9,9 @@ hello(x)
 \arguments{
 \item{x}{The number to be added to}
 }
+\value{
+string
+}
 \description{
 Hello world for saying Hello
 }

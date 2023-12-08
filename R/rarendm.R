@@ -1,16 +1,21 @@
-#' Title
+#' Endemicty and rarity
 #'
-#' @param data
-#' @param habitat
-#' @param species
-#' @param area
-#' @param iucn
-#' @param hname
+#' @param data fhfh
+#' @param habitat fhfh
+#' @param species jfjf
+#' @param area jfjfj
+#' @param iucn jfjf
+#' @param hname nnvnv
 #'
-#' @return
+#' @return priority score for one habitat form the dataset.
 #' @export
 #'
 #' @examples
+#'
+#' victoria <- cpi(data=gbif, habitat='habitat',
+#' species='species', area='area', iucn='iucn', hname='Lake Victoria')
+#'
+#'
 rareend <- function(data, habitat, species, area, iucn, hname){
 
   if(missing(data)) stop('Data is not provided')
@@ -19,7 +24,7 @@ rareend <- function(data, habitat, species, area, iucn, hname){
 
 
   if(is(data,'sf')){
-    data <- data %>% st_drop_geometry()
+    data <- st_drop_geometry(data)
   }else{
     data
   }

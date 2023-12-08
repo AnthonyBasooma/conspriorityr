@@ -1,11 +1,15 @@
-#' Title
+#' Checks and standardizes species threat status .
 #'
-#' @param iucn
+#' @param iucn The species International Union for C.
 #'
-#' @return
+#' @return string
+#'
 #' @export
 #'
 #' @examples
+#'
+#' sp <- clean_iucn(iucn='cr')
+#'
 clean_iucn <- function(iucn){
 
   tiucn <- tolower(iucn)
@@ -16,7 +20,8 @@ clean_iucn <- function(iucn){
 
   spc <- gsub("[^[:alnum:]]", " ", act1)
 
-  iucn <- trimws(gsub("\\s+"," " ,spc), which = 'both')
+  spiucn <- trimws(gsub("\\s+"," " ,spc), which = 'both')
 
-  return(iucn)
+  return(spiucn)
 }
+

@@ -16,9 +16,10 @@ knitr::opts_chunk$set(
 # conspriorityr
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of conspriorityr is to ...
+Computes conservation based habitat scores to aid in preferential selection for conservation espeically when resources are limited. The scores compute incorporates the species threat levels, rarity, richness, and habitat surface area. The smaller a habitat with threatened species which are endemic the higher the higher scores. Surface area was also incorporated as a proxy for financial constraint to select habitats are cost-effective to manage in case of limited resources.
 
 ## Installation
 

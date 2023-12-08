@@ -1,16 +1,23 @@
-#' Title
+#' Checks the species names to match databses such as FishBase.
 #'
-#' @param species
+#' @param species Species name to be cleaned
 #'
-#' @return
+#' @importFrom stringr str_to_sentence
+#'
+#' @return string
+#'
+#'
 #' @export
 #'
 #' @examples
+#'
+#' sp <- clean_names(species='Lates Niloticus')
+#'
 clean_names <- function(species){
 
   sp1 <- gsub('\\s+', replacement = ' ', x=species)
 
-  sp <- stringr::str_to_sentence(sp1)
+  sp <- str_to_sentence(sp1)
 
   return(sp)
 }

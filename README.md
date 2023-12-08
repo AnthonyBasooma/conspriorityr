@@ -4,6 +4,8 @@
 # conspriorityr
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Computes conservation based habitat scores to aid in preferential

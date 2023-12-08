@@ -2,7 +2,7 @@
 #'
 #' @param x The number to be added to
 #'
-#' @return
+#' @return string
 #' @export
 #'
 #' @examples
