@@ -16,7 +16,7 @@
 #'
 #' @examples
 #'
-#' victoria <- cpi(data=gbif, habitat='habitat', species='species', area='area', iucn='iucn')
+#' victoria <- cpi(data='gbif', habitat='habitat', species='species', area='area', iucn='iucn')
 #'
 cpi <- function(data, habitat, species, area, iucn, plot=NULL){
 

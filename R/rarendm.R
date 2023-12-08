@@ -12,7 +12,7 @@
 #'
 #' @examples
 #'
-#' victoria <- cpi(data=gbif, habitat='habitat',
+#' victoria <- cpi(data='gbif', habitat='habitat',
 #' species='species', area='area', iucn='iucn', hname='Lake Victoria')
 #'
 #'

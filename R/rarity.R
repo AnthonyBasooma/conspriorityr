@@ -12,7 +12,7 @@
 #'
 #' @examples
 #'
-#' rarity_lates <- rarity(data= gbif, habitat='habitat', species='species', sp='Lates niloticus')
+#' rarity_lates <- rarity(data= 'gbif', habitat='habitat', species='species', sp='Lates niloticus')
 #'
 rarity <- function(data, habitat, species, sp){
 
