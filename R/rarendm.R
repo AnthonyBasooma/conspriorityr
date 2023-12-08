@@ -12,8 +12,17 @@
 #'
 #' @examples
 #'
-#' victoria <- cpi(data='gbif', habitat='habitat',
+#'\dontrun{
+#' library(sf)
+#'
+#' data('gbif')
+#'
+#' gbif
+#'
+#' victoria <- cpi(data=gbif, habitat='lakes',
 #' species='species', area='area', iucn='iucn', hname='Lake Victoria')
+#'}
+#'
 #'
 #'
 rareend <- function(data, habitat, species, area, iucn, hname){

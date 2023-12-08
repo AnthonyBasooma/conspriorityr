@@ -12,7 +12,19 @@
 #'
 #' @examples
 #'
-#' rarity_lates <- rarity(data= 'gbif', habitat='habitat', species='species', sp='Lates niloticus')
+#' \dontrun{
+#'
+#' library(sf)
+#'
+#' data('gbif')
+#'
+#' gbif
+#'
+#' rarity_lates <- rarity(data= gbif, habitat='lakes',
+#' species='species', sp='Lates niloticus')
+#'
+#' }
+#'
 #'
 rarity <- function(data, habitat, species, sp){
 

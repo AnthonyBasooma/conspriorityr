@@ -1,4 +1,4 @@
-#' Checks the species names to match databses such as FishBase.
+#' Checks the species names to match databses such as FishBase
 #'
 #' @param species Species name to be cleaned
 #'
