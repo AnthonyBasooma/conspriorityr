@@ -7,6 +7,8 @@
 #'
 clean_iucn <- function(iucn){
 
+  if(missing(iucn)) stop('IUCN names missing')
+
   tiucn <- tolower(iucn)
 
   act <- iconv(tiucn, from = 'UTF-8', to = 'ASCII//TRANSLIT')

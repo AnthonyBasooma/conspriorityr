@@ -2,7 +2,7 @@
 % Please edit documentation in R/rarity.R
 \name{rarity}
 \alias{rarity}
-\title{Computes the species endemicity weights based on the number habitats is recorded in.}
+\title{Computes the species rarity scores based on the number habitats is recorded in.}
 \usage{
 rarity(data, habitat, species, sp)
 }
@@ -16,10 +16,16 @@ rarity(data, habitat, species, sp)
 \item{sp}{The species names in question. Either scientific or local but must be in the data.}
 }
 \value{
-value, rarity or endemic score.
+Rarity or endemic score.
 }
 \description{
-Computes the species endemicity weights based on the number habitats is recorded in.
+Computes the species rarity scores based on the number habitats is recorded in.
+}
+\details{
+The rarity computed for each species based on (Basooma et al., 2022). The SSR = 1-(Ws/Wt) where Ws is
+the number of habitats were the species is found and Wt is the total number habitats considered. Rarity
+scores ranges from 0 to 1; where 0 means the species is common to all habitats and 1 is endemic to only one
+habitat among the habitats.
 }
 \examples{
 
@@ -31,7 +37,7 @@ data('gbif')
 
 gbif
 
-rarity_lates <- rarity(data= gbif, habitat='wb',
+rarity_lates <- rarity(data= gbif, habitat='waterbody',
 species='species', sp='Lates niloticus')
 
 }

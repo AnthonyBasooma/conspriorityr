@@ -5,7 +5,7 @@
 \alias{gbif}
 \title{Global Biodiversity Information Data data for African lakes}
 \format{
-A dataframe with 50 columns and 36541 rows.
+A \code{tibble} with 11 columns and 12231 rows.
 \describe{
 \item{area}{the surface area of each waterbody. For shared waterbodies, the surface area was segregated per country}
 \item{avdepth}{Average depth for each waterbody collated from literature}
@@ -30,6 +30,15 @@ the original data can be found and referenced at
 GBIF.org (04 June 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.y7amdg. In case
 of scientific data use, the users are strongly advised to use the orginal copy. But, in this
 package, the customised data file will be used.
+}
+\examples{
+
+\dontrun{
+
+data("gbif")
+gbif
+}
+
 }
 \references{
 GBIF.org (04 June 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.y7amdg

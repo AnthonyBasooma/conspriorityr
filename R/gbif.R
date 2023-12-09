@@ -21,14 +21,14 @@
 #'
 #' @keywords datasets
 #'
-#' @format A dataframe with 50 columns and 36541 rows.
+#' @format A \code{tibble} with 11 columns and 12231 rows.
 #' \describe{
 #' \item{area}{the surface area of each waterbody. For shared waterbodies, the surface area was segregated per country}
 #' \item{avdepth}{Average depth for each waterbody collated from literature}
 #' \item{nature}{categorising waterbodies into lakes, rivers, streams, or oceans}
 #' }
 #'
-#' @example
+#' @examples
 #'
 #' \dontrun{
 #'
@@ -41,3 +41,4 @@
 #' @references GBIF.org (04 June 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.y7amdg
 #'
 "gbif"
+

@@ -21,7 +21,7 @@ species names and threat status should be provided.}
 \item{plot}{To visualize the a bar graph of priority score for each habitat.}
 }
 \value{
-Dataframe with species scores
+Dataframe with habitat priority scores.
 }
 \description{
 Computes conservation priority scores for more than one habitat based on Basooma et al., 2022
@@ -44,8 +44,8 @@ data('gbif')
 
 gbif
 
-kyoga <- cpi(data=gbif, habitat='wb',
-species='species', area='sa', iucn='IUCN', plot=NULL)
+kyoga <- cpi(data=gbif, habitat='waterbody',
+species='species', area='surfacearea', iucn='iucnstatus', plot=NULL)
 
 }
 

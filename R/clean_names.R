@@ -4,7 +4,7 @@
 #'
 #' @importFrom stringr str_to_sentence
 #'
-#' @return string
+#' @return Cleaned species name
 #'
 #'
 #' @export
@@ -17,7 +17,9 @@ clean_names <- function(species){
 
   sp1 <- gsub('\\s+', replacement = ' ', x=species)
 
-  sp <- str_to_sentence(sp1)
+  sp <- stringr::str_to_sentence(sp1)
+
+  if(grepl('[a-zA-Z]', x=sp)!=TRUE) stop('The species name should have atleast some alphabets not puctuation only')
 
   return(sp)
 }

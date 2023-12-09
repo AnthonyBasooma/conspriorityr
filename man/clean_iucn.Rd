@@ -2,21 +2,16 @@
 % Please edit documentation in R/clean_iucn.R
 \name{clean_iucn}
 \alias{clean_iucn}
-\title{Checks and standardizes species threat status .}
+\title{Checks and standardizes species threat status to match the analysis protocol.}
 \usage{
 clean_iucn(iucn)
 }
 \arguments{
-\item{iucn}{The species International Union for C.}
+\item{iucn}{The species International Union for Conservation Redlist. Internal use not exported}
 }
 \value{
 string
 }
 \description{
-Checks and standardizes species threat status .
-}
-\examples{
-
-sp <- clean_iucn(iucn='cr')
-
+Checks and standardizes species threat status to match the analysis protocol.
 }

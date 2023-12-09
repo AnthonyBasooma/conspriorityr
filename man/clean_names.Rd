@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_names.R
 \name{clean_names}
 \alias{clean_names}
-\title{Checks the species names to match databses such as FishBase}
+\title{Cleans species names with redundant white spaces and character case differences}
 \usage{
 clean_names(species)
 }
@@ -10,10 +10,10 @@ clean_names(species)
 \item{species}{Species name to be cleaned}
 }
 \value{
-string
+Cleaned species name
 }
 \description{
-Checks the species names to match databses such as FishBase
+Cleans species names with redundant white spaces and character case differences
 }
 \examples{
 

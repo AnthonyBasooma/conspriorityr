@@ -2,28 +2,37 @@
 % Please edit documentation in R/rarendm.R
 \name{rareend}
 \alias{rareend}
-\title{Endemicty and rarity}
+\title{Endemicty and rarity priorty score for a selected habitat}
 \usage{
 rareend(data, habitat, species, area, iucn, hname)
 }
 \arguments{
-\item{data}{fhfh}
+\item{data}{The dataframe with the habitat details including habitat, species, area and IUCN status for
+for each species}
 
-\item{habitat}{fhfh}
+\item{habitat}{Column for habitat names}
 
-\item{species}{jfjf}
+\item{species}{Column for species names, whether scientific or local names.}
 
-\item{area}{jfjfj}
+\item{area}{Column with the area of the habitat. Either measured in the field or using already made polygons.}
 
-\item{iucn}{jfjf}
+\item{iucn}{Species IUCN categories based on IUCN Redlist. The package is currently tailored to
+IUCN Red List status assessments.}
 
-\item{hname}{nnvnv}
+\item{hname}{Particular habitat name to compute the priority scores for.}
 }
 \value{
-priority score for one habitat form the dataset.
+priority score for one habitat form the data. For multiple habitats use \link[conspriorityr]{cpi}
 }
 \description{
-Endemicty and rarity
+Endemicty and rarity priorty score for a selected habitat
+}
+\details{
+For all species were weighted based on the IUCN Red List status.
+Highest and lowest weights assigned to extinct and least concern conservation categories, respectively.
+The weights were assigned as follows: ET = 7, EXw = 6, CR = 5, DD = 5,
+NE = 5, EN = 4, VU = 3, NT = 2, and LC = 1.
+The conservation priority scores are computed in Basooma et al., 2022
 }
 \examples{
 
@@ -34,10 +43,8 @@ data('gbif')
 
 gbif
 
-victoria <- cpi(data=gbif, habitat='wb',
-species='species', area='sa', iucn='IUCN', hname='Lake Victoria')
+victoria <- cpi(data=gbif, habitat='waterbody',
+species='species', area='surfacearea', iucn='iucnstatus', hname='Lake Victoria')
 }
-
-
 
 }
