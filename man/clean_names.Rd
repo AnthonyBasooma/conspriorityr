@@ -20,3 +20,6 @@ Cleans species names with redundant white spaces and character case differences
 sp <- clean_names(species='Lates Niloticus')
 
 }
+\seealso{
+{\code{\link{cpi_one}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
+}

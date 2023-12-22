@@ -1,11 +1,11 @@
-#' Computes conservation priority scores for more than one habitat based on Basooma et al., 2022
+#' @title Computes conservation priority scores for more than one habitat.
 #'
 #' @param data A data frame with all the details of habitats, surface area,
 #' species names and threat status should be provided.
-#' @param habitat A column with the different habitat names considered.
-#' @param species A column with all species names in the habitat.
-#' @param area The habitat area or measure of coverage that can used for conservation selection.
-#' @param iucn A column with the speciea threat classes or category such as vulnerable.
+#' @param habitat A variable with the different habitat names considered.
+#' @param species A variable with all species names in the habitat.
+#' @param area A variable habitat area or measure of coverage that can used for conservation selection.
+#' @param iucn A variable with the species threat classes or category such as vulnerable.
 #' @param plot To visualize the a bar graph of priority score for each habitat.
 #'
 #' @importFrom sf st_drop_geometry
@@ -13,36 +13,73 @@
 #' @importFrom methods is
 #' @importFrom stats complete.cases
 #'
-#' @return Dataframe with habitat priority scores.
+#' @return Data frame with habitat priority scores.
 #'
 #' @details
-#' The priority index is a novel conservation metric which weights the waterbody or habitat depending
-#' on the species richness and rareness among the water bodies considered.
-#' In addition, the species International Union Conservation for Nature status
-#' is weighted where a critically endangered is weighted 5, endangered = 4,
-#' vulnerable = 3, near threatened = 2, least concern = 1. Based on the assumption
-#' by IUCN that both data deficient and not evaluated should considered threatened
-#' until their status is established, all their weights was 5.
-#' The surface area of the water body or habitat considered in the computation.
-#'
+#' The priority index is a novel conservation metric which weights the water body or habitat depending
+#' on the species richness and rareness among the water bodies considered \strong{(Basooma et al., 2022)}.
+#' The weights were assigned as follows: \strong{ET = 7}, \strong{EXw = 6}, \strong{CR = 5},
+#' \strong{DD = 5}, \strong{NE = 5}, \strong{EN = 4}, \strong{VU = 3}, \strong{NT = 2},
+#' and \strong{LC = 1}.
+#' The conservation priority scores are computed in \strong{(Basooma et al., 2022)}
+#' The surface area of the water body or habitat considered in the computation .
 #'
 #' @export
+#'
+#' @seealso {\code{\link{cpi_one}}, \code{\link{rarity}}, \code{\link{clean_names}}}
 #'
 #' @examples
 #'
 #' \dontrun{
+#' #species record id
+#' id <- seq(1, 30, 1)
+#' #lakes to be prioritized for conservation
+#' habitats <- rep(c('Kyoga','Victoria','Albert'), 10)
+#' #surface area for each lake
+#' surface_area <- rep(c(1821.6, 33700, 2850), 10) #Uganda surface area in Uganda
+#'
+#' #species recorded in each lake
+#' species <- c(rep('Haplochromine latifasciatus', 2),
+#'             rep('Lates macropthalmous', 1),
+#'             rep('Haplochromis phytophagus',1),
+#'             rep('L. niloticus',21),
+#'             rep('Clarias gariepinus', 5))
+#' #final dataframe
+#' df_final <- data.frame(id, habitats, surface_area, species)
+#' #Assign each species the IUCN categories based on IUCN RedList
+#' df_final$iucn <- ifelse(species=='Clarias gariepinus', 'LC',
+#'                         ifelse(species=='L. niloticus', 'LC',
+#'                               ifelse(species=='Haplochromis phytophagus', 'DD',
+#'                                     ifelse(species=='Lates macropthalmous','EN',
+#'                                            ifelse(species=='Haplochromine latifasciatus',
+#'                                            'CR', NA)))))
+#'
+#' cpihabt <- cpi_all(data=df_final, habitat='habitats', species='species', area='surface_area',
+#'  iucn='iucn', plot=NULL)
+#'
+#'
+#' cpihabts_plt <- cpi_all(data=df_final, habitat='habitats', species='species',
+#' area='surface_area', iucn='iucn', plot=TRUE)
+#'
+#'
 #'
 #' data('gbif')
-#'
 #' gbif
 #'
-#' kyoga <- cpi(data=gbif, habitat='waterbody',
+#' cpihabts <- cpi_all(data=gbif, habitat='waterbody',
 #' species='species', area='surfacearea', iucn='iucnstatus', plot=NULL)
 #'
 #' }
 #'
+#' @keywords conservation priority index
 #'
-cpi <- function(data, habitat, species, area, iucn, plot=NULL){
+#' @references Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S., Nkalubo, W.,
+#' Musinguzi, L., & Natugonza, V. (2022). A novel index to aid in prioritizing habitats
+#' for site‐based conservation. Ecology and Evolution, 12(3), e8762.
+#'
+#' @author Anthony Basooma (bas4ster@gmail.com)
+#'
+cpi_all <- function(data, habitat, species, area, iucn, plot=NULL){
 
   if(missing(data)) stop('Data missing', call. = FALSE)
 
@@ -84,7 +121,7 @@ cpi <- function(data, habitat, species, area, iucn, plot=NULL){
 
     habitatnames <- as.character(unique_habitat[ii])
 
-    cpifinal[ii] <- rareend(data = data, habitat = habitat, species = species,
+    cpifinal[ii] <- cpi_one(data = data, habitat = habitat, species = species,
                             area = area, iucn = iucn,
                             hname = habitatnames)
 
@@ -106,11 +143,5 @@ cpi <- function(data, habitat, species, area, iucn, plot=NULL){
   return(df)
 }
 
-#' @keywords conservation priority index
-#'
-#' @references Basooma et al. 2022. Using the novel priority index in prioritising
-#' the selection of inland water bodies for site-based fish conservation.
-#' Ecology and Evolution Volume12, Issue3 March 2022 e8762
-#' https://doi.org/10.1002/ece3.8762
 
 

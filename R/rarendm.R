@@ -1,40 +1,82 @@
-#' Endemicty and rarity priorty score for a selected habitat
+
+#' @title Conservation priority score for a particular habitat
 #'
-#' @param data The dataframe with the habitat details including habitat, species, area and IUCN status for
+#' @param data Data frame with the habitat details including habitat, species, area and IUCN status for
 #' for each species
-#' @param habitat Column for habitat names
-#' @param species Column for species names, whether scientific or local names.
-#' @param area Column with the area of the habitat. Either measured in the field or using already made polygons.
-#' @param iucn Species IUCN categories based on IUCN Redlist. The package is currently tailored to
-#' IUCN Red List status assessments.
+#' @param habitat A variable for habitat names
+#' @param species A variable for species names, whether scientific or local names.
+#' @param area A variable with the area of the habitat. Either measured in the field or using already made polygons.
+#' @param iucn A variable for species IUCN categories based on IUCN RedList (IUCN 2001).
+#' The package is currently tailored to IUCN Red List status assessments.
 #' @param hname Particular habitat name to compute the priority scores for.
 #'
 #' @details
 #' For all species were weighted based on the IUCN Red List status.
 #' Highest and lowest weights assigned to extinct and least concern conservation categories, respectively.
-#' The weights were assigned as follows: ET = 7, EXw = 6, CR = 5, DD = 5,
-#' NE = 5, EN = 4, VU = 3, NT = 2, and LC = 1.
-#' The conservation priority scores are computed in Basooma et al., 2022
+#' The weights were assigned as follows: \strong{ET = 7}, \strong{EXw = 6}, \strong{CR = 5},
+#' \strong{DD = 5}, \strong{NE = 5}, \strong{EN = 4}, \strong{VU = 3}, \strong{NT = 2},
+#' and \strong{LC = 1}. The conservation priority scores are computed in \strong{(Basooma et al., 2022)}
 #'
+#' @seealso {\code{\link{rarity}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
 #'
-#' @return priority score for one habitat form the data. For multiple habitats use \link[conspriorityr]{cpi}
+#' @return Conservation priority score for one habitat form the data.
+#' For multiple habitats use \link[conspriorityr]{cpi_all}
+#'
 #' @export
 #'
 #' @examples
 #'
-#'\dontrun{
+#' \dontrun{
+#' #species record id
+#' id <- seq(1, 30, 1)
+#' #lakes to be prioritized for conservation
+#' habitats <- rep(c('Kyoga','Victoria','Albert'), 10)
+#' #surface area for each lake
+#' surface_area <- rep(c(1821.6, 33700, 2850), 10) #Uganda surface area in Uganda
+#'
+#' #species recorded in each lake
+#' species <- c(rep('Haplochromine latifasciatus', 2),
+#'             rep('Lates macropthalmous', 1),
+#'             rep('Haplochromis phytophagus',1),
+#'             rep('L. niloticus',21),
+#'             rep('Clarias gariepinus', 5))
+#' #final dataframe
+#' df_final <- data.frame(id, habitats, surface_area, species)
+#' #Assign each species the IUCN categories based on IUCN RedList
+#' df_final$iucn <- ifelse(species=='Clarias gariepinus', 'LC',
+#'                         ifelse(species=='L. niloticus', 'LC',
+#'                               ifelse(species=='Haplochromis phytophagus', 'DD',
+#'                                     ifelse(species=='Lates macropthalmous','EN',
+#'                                            ifelse(species=='Haplochromine latifasciatus',
+#'                                            'CR', NA)))))
+#'
+#' victoriacpi <- cpi_one(data= df_final, habitat='habitats', species='species',
+#' area='surface_area',iucn='iucn', hname='Victoria')
+#'
 #' library(sf)
 #'
 #' data('gbif')
 #'
 #' gbif
 #'
-#' victoria <- cpi(data=gbif, habitat='waterbody',
-#' species='species', area='surfacearea', iucn='iucnstatus', hname='Lake Victoria')
+#' victoria <- cpi_one(data=gbif, habitat='waterbody', species='species', area='surfacearea',
+#' iucn='iucnstatus', hname='Lake Victoria')
 #'}
 #'
+#'
+#' @references
+#'
+#' \enumerate{
+#' \item Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S., Nkalubo, W.,
+#' Musinguzi, L., & Natugonza, V. (2022). A novel index to aid in prioritizing habitats
+#' for site‐based conservation. Ecology and Evolution, 12(3), e8762.
+#' \item Natural Resources. Species Survival Commission, & IUCN Species Survival Commission. (2001).
+#' IUCN Red List categories and criteria. IUCN.
+#' }
+#'
+#' @author Anthony Basooma (bas4ster@gmail.com)
 
-rareend <- function(data, habitat, species, area, iucn, hname){
+cpi_one <- function(data, habitat, species, area, iucn, hname){
 
 
   if(missing(data)) stop('Data missing')
@@ -179,10 +221,3 @@ rareend <- function(data, habitat, species, area, iucn, hname){
 
   return(endrare)
 }
-#'
-#'@author Anthony Basooma (bas4ster@gmail.com)
-#'
-#'@references Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S.,
-#'Nkalubo, W., Musinguzi, L., & Natugonza, V. (2022).
-#'A novel index to aid in prioritizing habitats for site‐based conservation.
-#'Ecology and Evolution, 12(3), e8762.

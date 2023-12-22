@@ -2,34 +2,64 @@
 % Please edit documentation in R/rarity.R
 \name{rarity}
 \alias{rarity}
-\title{Computes the species rarity scores based on the number habitats is recorded in.}
+\title{Endemicity or rarity scores for a particular species.}
 \usage{
 rarity(data, habitat, species, sp)
 }
 \arguments{
 \item{data}{Data frame with all species and habitats names in the area of study.}
 
-\item{habitat}{A column with the habitat names.}
+\item{habitat}{A variable with the habitat names.}
 
-\item{species}{A column with species names.}
+\item{species}{A variable with species names.}
 
 \item{sp}{The species names in question. Either scientific or local but must be in the data.}
 }
 \value{
-Rarity or endemic score.
+Species rarity scores.
 }
 \description{
-Computes the species rarity scores based on the number habitats is recorded in.
+Endemicity or rarity scores for a particular species.
 }
 \details{
-The rarity computed for each species based on (Basooma et al., 2022). The SSR = 1-(Ws/Wt) where Ws is
-the number of habitats were the species is found and Wt is the total number habitats considered. Rarity
-scores ranges from 0 to 1; where 0 means the species is common to all habitats and 1 is endemic to only one
-habitat among the habitats.
+The rarity computed for each species based on \strong{(Basooma et al., 2022)}.
+The \emph{SSR = 1-(Ws/Wt)} where Ws is the number of habitats were the species
+is found and Wt is the total number habitats considered. Rarity scores ranges
+from \strong{0 to 1}; where \strong{0} means the species is common to all habitats and 1 is
+endemic to only one habitat among the habitats \strong{(Basooma et al., 2022)}.
 }
 \examples{
 
 \dontrun{
+
+#species record id
+id <- seq(1, 30, 1)
+#lakes to be prioritized for conservation
+habitats <- rep(c('Kyoga','Victoria','Albert'), 10)
+#surface area for each lake
+surface_area <- rep(c(1821.6, 33700, 2850), 10) #Uganda surface area in Uganda
+
+#species recorded in each lake
+species <- c(rep('Haplochromine latifasciatus', 2),
+            rep('Lates macropthalmous', 1),
+            rep('Haplochromis phytophagus',1),
+            rep('L. niloticus',21),
+            rep('Clarias gariepinus', 5))
+#final dataframe
+df_final <- data.frame(id, habitats, surface_area, species)
+#Assign each species the IUCN categories based on IUCN RedList
+df_final$iucn <- ifelse(species=='Clarias gariepinus', 'LC',
+                        ifelse(species=='L. niloticus', 'LC',
+                              ifelse(species=='Haplochromis phytophagus', 'DD',
+                                    ifelse(species=='Lates macropthalmous','EN',
+                                           ifelse(species=='Haplochromine latifasciatus',
+                                           'CR', NA)))))
+
+cgariepinus <- rarity(data= df_final, habitat='habitats', species='species',
+sp='Clarias gariepinus')
+
+cgariepinus
+
 
 library(sf)
 
@@ -44,3 +74,18 @@ species='species', sp='Lates niloticus')
 
 
 }
+\references{
+Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S., Nkalubo, W.,
+Musinguzi, L., & Natugonza, V. (2022). A novel index to aid in prioritizing habitats
+for site‐based conservation. Ecology and Evolution, 12(3), e8762.
+}
+\seealso{
+{\code{\link{cpi_one}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
+}
+\author{
+Anthony Basooma (bas4ster@gmail.com)
+}
+\keyword{endemicity}
+\keyword{or}
+\keyword{rarity}
+\keyword{species}

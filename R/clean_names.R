@@ -1,4 +1,4 @@
-#' Cleans species names with redundant white spaces and character case differences
+#' @title Cleans species names with redundant white spaces and character case differences
 #'
 #' @param species Species name to be cleaned
 #'
@@ -6,8 +6,9 @@
 #'
 #' @return Cleaned species name
 #'
-#'
 #' @export
+#'
+#' @seealso {\code{\link{cpi_one}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
 #'
 #' @examples
 #'

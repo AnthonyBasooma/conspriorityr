@@ -1,3 +1,6 @@
+
+# Internal function to check for IUCN categories
+
 #' @title Checks and standardizes species threat status to match the analysis protocol.
 #'
 #' @param iucn The species International Union for Conservation Redlist. Internal use not exported
