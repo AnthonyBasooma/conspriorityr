@@ -30,7 +30,7 @@ Funding biodiversity conservation strategies are usually minimal, thus prioritiz
 ``` r
 #For windows operating system
 #
-install.packages('remotes)
+install.packages('remotes')
 
 install_github("AnthonyBasooma/conspriorityr")
 library(conspriorityr)

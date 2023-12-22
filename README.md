@@ -24,7 +24,7 @@ particular habitat or several habitats.
 ``` r
 #For windows operating system
 #
-install.packages('remotes)
+install.packages('remotes')
 
 install_github("AnthonyBasooma/conspriorityr")
 library(conspriorityr)
