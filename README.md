@@ -168,7 +168,7 @@ finalresult <- unique.data.frame(cpipolmap)
 ggplot()+
   geom_sf(data= finalresult, aes(fill=cpi))+
   scale_fill_viridis_c(direction = 1)+
-  geom_sf_text(data = finalresult, aes(label = waterbody), size=3)+
+  geom_sf_text(data = finalresult, aes(label = waterbody), size=2)+
   labs(x='Longitude', y='Latitude', fill='Priority scores')
 #> Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not
 #> give correct results for longitude/latitude data
@@ -209,3 +209,5 @@ ggplot()+
 5.  Wickham H, François R, Henry L, Müller K, Vaughan D (2023). *dplyr:
     A Grammar of Data Manipulation*. R package version 1.1.2,
     <https://CRAN.R-project.org/package=dplyr>.
+
+### END

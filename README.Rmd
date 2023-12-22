@@ -53,8 +53,8 @@ library(conspriorityr)
 ```{r libraries, echo=FALSE}
 
 library(conspriorityr) #compute priority scores
-library(sf) #to handle the vector data/maps (Pebesma, E., & Bivand, R. (2023))
-library(dplyr) #(Wickham etl ., 2023)
+library(sf) #to handle the vector data/maps (Pebesma & Bivand 2023))
+library(dplyr) #(Wickham et al ., 2023)
 library(ggplot2) #(Wickham 2023)
 
 ```
