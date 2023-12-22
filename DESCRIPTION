@@ -1,7 +1,7 @@
 Package: conspriorityr
 Type: Package
 Title: Computes Priority Scores for Habitats to Aid in Preferential Selection for Conservation
-Version: 0.1.0
+Version: 1.0.0
 Author: Anthony Basooma <bas4ster@gmail.com>
 Maintainer: Anthony Basooma <bas4ster@gmail.com>
 Description: Computes priority scores to aid in preferential selection of habitats
