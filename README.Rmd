@@ -13,19 +13,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-# conspriorityr
+## Package: conspriorityr
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AnthonyBasooma/conspriorityr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# Introduction
+## Introduction
 
-Funding biodiversity conservation strategies are usually minimal, thus prioritizing habitats at high risk should be conducted. We developed and tested a conservation priority index (CPI) that ranks habitats to aid in prioritizing them for conservation. We tested the index using 1897 fish species from 273 African inland lakes and 34 countries. In the index, lake surface area, rarity, and their International Union for Conservation of Nature (IUCN) Red List status were incorporated. We retrieved data from the Global Biodiversity Information Facility (GBIF) and IUCN data repositories. Lake Nyasa had the highest species richness (424), followed by Tanganyika (391), Nokoué (246), Victoria (216), and Ahémé (216). However, lakes Otjikoto and Giunas had the highest CPI of 137.2 and 52.1, respectively. Lakes were grouped into high priority (CPI > 0.5; n = 56) and low priority (CPI < 0.5; n = 217). The median surface area between priority classes was significantly different (W = 11,768, p < .05, effect size = 0.65). Prediction accuracy of Random Forest (RF) and eXtreme Gradient Boosting (XGBoost) for priority classes were 0.912 and 0.954, respectively. Both models exhibited lake surface area as the variable with the highest importance. CPI generally increased with a decrease in lake surface area. This was attributed to less ecological substitutability and higher exposure levels of anthropogenic stressors such as pollution to a species in smaller lakes. Also, the highest species richness per unit area was recorded for high-priority lakes. Thus, smaller habitats or lakes may be prioritized for conservation although larger waterbodies or habitats should not be ignored. The index can be customized to local, regional, and international scales as well as marine and terrestrial habitats. https://doi.org/10.1002/ece3.8762.
+Funding biodiversity conservation strategies are usually minimal, thus prioritizing habitats at high risk should be conducted. We developed and tested a conservation priority index (CPI) that ranks habitats to aid in prioritizing them for conservation (Basoom et al., 2022). This package contains has fucntion to compute the rarity, conservation scores for a particular habitat or several habitats.
 
 ## Installation
 
-Install the recent version from Github
+### Install the recent version from Github
 
 ``` r
 #For windows operating system
@@ -43,26 +43,27 @@ remotes::install_github("AnthonyBasooma/conspriorityr@HEAD")
 library(conspriorityr)
 
 ```
-# Usage
-## Conservation prioritsation vs financial constraints
+## Usage
 
-## Example: Prioritizing the conservation of a waterbody with conservation significance but with limited resources in the Lake Kyoga system in Uganda
+### Conservation prioritsation vs financial constraints
+
+* Example: Prioritizing the conservation of a waterbody with conservation significance but with limited resources in the Lake Kyoga system in Uganda
 
 
-```{r libraries}
+```{r libraries, echo=FALSE}
 
 library(conspriorityr) #compute priority scores
-library(sf) #to handle the vector data/maps
-library(dplyr)
-library(ggplot2)
+library(sf) #to handle the vector data/maps (Pebesma, E., & Bivand, R. (2023))
+library(dplyr) #(Wickham etl ., 2023)
+library(ggplot2) #(Wickham 2023)
 
 ```
 
-## Data sources 
+* Data sources 
 
 ```{r data}
 
-#Obtain hydrosheds basins for Africa and extract the Kyoga lakes system
+#Obtain hydrosheds basins for Africa and extract the Kyoga lakes system (Lehner et al., 2008)
 #https://data.hydrosheds.org/file/hydrobasins/standard/hybas_af_lev01-12_v1c.zip
 #Kyoga lakes extracted for analysis
 
@@ -72,10 +73,11 @@ kyoga <- st_read(dsn=system.file('extdata/hydrosheds', 'kyoga.shp',
 
 #Species occurences archived in the package
 data('gbif')
+
 species_occurences <- gbif
 ```
 
-##Data cleaning and merging
+* Data cleaning and merging
 
 ```{r analysis}
 
@@ -86,7 +88,7 @@ species_clean <- species_occurences[complete.cases(species_occurences$decimalLat
 
 species_clean_sf <- species_clean %>% st_as_sf(coords = c('decimalLongitude','decimalLatitude'), crs=st_crs(4326))
 
-head(species_clean_sf)
+#head(species_clean_sf)
 
 #Filter out records within the kyoga lakes
 species_clean_kyoga <- sf:: st_filter(species_clean_sf, kyoga) 
@@ -95,8 +97,10 @@ species_clean_kyoga <- sf:: st_filter(species_clean_sf, kyoga)
 
 ```
 
-## Testing functionalites
-## Rarity ranges from 0 : Present in all habitats to 1: found in only one system
+### Testing functionalites
+
+* Rarity ranges from 0 : Present in all habitats to 1: found in only one system
+
 
 ```{r testing}
 
@@ -108,15 +112,12 @@ haplo_rare <- rarity(data = species_clean_kyoga%>% st_drop_geometry(), habitat =
 haplo_rare
 
 #Conservation priority score for Kyoga main
-kyogamain <- rareend(data = species_clean_kyoga%>% st_drop_geometry(), habitat = 'waterbody', species = 'species',
-                 area = 'surfacearea',iucn = 'iucnstatus',
+kyogamain <- cpi_one(data = species_clean_kyoga%>% st_drop_geometry(), habitat = 'waterbody', species = 'species',area = 'surfacearea',iucn = 'iucnstatus',
                  hname = 'Lake Kyoga')
 kyogamain
 # #CPI for Agu
 
-agu <- rareend(data = species_clean_kyoga %>% st_drop_geometry(), habitat = 'waterbody', species = 'species',
-                 area = 'surfacearea',iucn = 'iucnstatus',
-                 hname = 'Lake Agu')
+agu <- cpi_one(data = species_clean_kyoga %>% st_drop_geometry(), habitat = 'waterbody', species = 'species',area = 'surfacearea',iucn = 'iucnstatus', hname = 'Lake Agu')
 agu
 
 #CPI Agu 31.717 vs 0.38: Which signifies that in case of less resources Lake Agu should be prioritised for conservation due to number of threatened and endemic species per unit surface area
@@ -126,7 +127,7 @@ agu
 ## Compute for many waterbodies or habitats
 
 ```{r comparemany}
-cpiall <- cpi(data = species_clean_kyoga%>% st_drop_geometry(), habitat = 'waterbody',
+cpiall <- cpi_all(data = species_clean_kyoga%>% st_drop_geometry(), habitat = 'waterbody',
              species='species', area = 'surfacearea', iucn = 'iucnstatus')
 
 
@@ -139,13 +140,12 @@ species_clean_kyogapoly <- sf::st_join(kyoga, species_clean_kyoga)#%>% st_drop_g
 
 #Compute priority scores for Lake Agu
 
-cpiagu_poly <- rareend(data = species_clean_kyogapoly%>% st_drop_geometry(), habitat = 'waterbody',
-                  species = 'species', area = 'surfacearea', iucn = 'iucnstatus',
+cpiagu_poly <- cpi_one(data = species_clean_kyogapoly%>% st_drop_geometry(), habitat = 'waterbody', species = 'species', area = 'surfacearea', iucn = 'iucnstatus',
                   hname = 'Lake Agu')
 
-#Compute for all waterbodies 
+#Compute for all water bodies 
 
-cpipol<- cpi(data = species_clean_kyogapoly%>% st_drop_geometry(), 
+cpipol<- cpi_all(data = species_clean_kyogapoly%>% st_drop_geometry(), 
              habitat = 'waterbody',
              species='species', area = 'surfacearea', iucn = 'iucnstatus')
 ```
@@ -166,14 +166,30 @@ finalresult <- unique.data.frame(cpipolmap)
 ggplot()+
   geom_sf(data= finalresult, aes(fill=cpi))+
   scale_fill_viridis_c(direction = 1)+
-  geom_sf_text(data = finalresult, aes(label = waterbody), size=4)
+  geom_sf_text(data = finalresult, aes(label = waterbody), size=2)+
+  labs(x='Longitude', y='Latitude', fill='Priority scores')
 
-#Only five with high scores
+#Only water bodies with cpi > 5with high scores
+
 ggplot()+
   geom_sf(data= finalresult %>% filter(cpi>5), aes(fill=cpi))+
   scale_fill_viridis_c(direction = 1)+
-  geom_sf_text(data = finalresult %>% filter(cpi>5), aes(label = waterbody), size=4)
-
+  geom_sf_text(data = finalresult %>% filter(cpi>5), aes(label = waterbody), size=3)+
+  labs(x='Longitude', y='Latitude', fill='Priority scores')
 
 ```
+
+## References
+
+1. Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S., Nkalubo, W., Musinguzi, L., & Natugonza, V. (2022). A novel index to aid in prioritizing habitats for site‐based conservation. Ecology and Evolution, 12(3), e8762.
+2. Lehner, B., Verdin, K., & Jarvis, A. (2008). New global hydrography derived from spaceborne elevation data. Eos, Transactions American Geophysical Union, 89(10), 93-94.
+3. Pebesma, E., & Bivand, R. (2023). Spatial Data Science: With Applications in R (1st
+  ed.). Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016
+4. Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.1.2, <https://CRAN.R-project.org/package=dplyr>.
+5. Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.1.2, <https://CRAN.R-project.org/package=dplyr>.
+
+### END
+
 
