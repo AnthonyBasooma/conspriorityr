@@ -21,5 +21,5 @@ sp <- clean_names(species='Lates Niloticus')
 
 }
 \seealso{
-{\code{\link{cpi_one}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
+{\code{\link{priorityindex}}, \code{\link{clean_names}}}
 }

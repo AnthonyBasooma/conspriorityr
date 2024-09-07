@@ -2,13 +2,12 @@
 #'
 #' @param species Species name to be cleaned
 #'
-#' @importFrom stringr str_to_sentence
 #'
 #' @return Cleaned species name
 #'
 #' @export
 #'
-#' @seealso {\code{\link{cpi_one}}, \code{\link{cpi_all}}, \code{\link{clean_names}}}
+#' @seealso {\code{\link{priorityindex}}, \code{\link{clean_names}}}
 #'
 #' @examples
 #'
@@ -18,9 +17,13 @@ clean_names <- function(species){
 
   sp1 <- gsub('\\s+', replacement = ' ', x=species)
 
-  sp <- stringr::str_to_sentence(sp1)
+  str1 <- unlist(strsplit(sp1, " "))[1]
 
-  if(grepl('[a-zA-Z]', x=sp)!=TRUE) stop('The species name should have atleast some alphabets not puctuation only')
+  strother <- paste0(unlist(strsplit(sp1, " "))[-1], collapse = ' ')
 
-  return(sp)
+  spclean <- paste0(paste0(toupper(strtrim(str1, 1)), substring(str1, 2)),' ',strother)
+
+  if(grepl('[a-zA-Z]', x= spclean)!=TRUE) stop('The species name should have atleast some alphabets not puctuation only')
+
+  return(spclean)
 }
