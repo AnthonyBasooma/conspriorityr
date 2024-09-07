@@ -30,7 +30,7 @@
 #' @importFrom utils install.packages
 #' @importFrom graphics barplot par
 #' @importFrom methods is
-#' @importFrom sf st_drop_geometry
+#' @importFrom sf st_drop_geometry st_as_sf st_join
 #'
 #' @export
 #'
@@ -90,6 +90,7 @@ priorityindex <- function(data, habitat, species, area, iucn,
                           lat = NULL, lon =  NULL,
                           polygon = NULL,
                           select = NULL,
+                          subset = NULL,
                           plot = FALSE,
                           full = FALSE,
                           map = FALSE){
@@ -249,7 +250,11 @@ priorityindex <- function(data, habitat, species, area, iucn,
 
   rownames(dataout) <- NULL
 
-  dataout <- dataout[, c(2,1)]
+  dataout1 <- dataout[, c(2,1)]
+
+  if(!is.null(subset)) dataout <- dataout1[dataout1[,"cpi"] >= subset,] else dataout
+
+  if(nrow(dataout)<1)stop("The subset value returns not, reduce the value to be with the cpi ranges for the habitats.", call. = FALSE)
 
   if(isTRUE(plot)){
 

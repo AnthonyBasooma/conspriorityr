@@ -4,7 +4,21 @@
 \alias{priorityindex}
 \title{Conservation priority score for a particular habitat}
 \usage{
-priorityindex(data, habitat, species, area, iucn, select = NULL, plot = FALSE)
+priorityindex(
+  data,
+  habitat,
+  species,
+  area,
+  iucn,
+  lat = NULL,
+  lon = NULL,
+  polygon = NULL,
+  select = NULL,
+  subset = NULL,
+  plot = FALSE,
+  full = FALSE,
+  map = FALSE
+)
 }
 \arguments{
 \item{data}{Data frame with the habitat details including habitat, species, area and IUCN status for

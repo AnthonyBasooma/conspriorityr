@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r initialisation, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -18,4 +18,75 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(conspriorityr)
+library(sf)
 ```
+
+## Usage
+
+### Conservation prioritsation vs financial constraints
+
+* Example: Prioritizing the conservation of a waterbody with conservation significance but with limited resources in the Lake Kyoga system in Uganda
+
+* Data sources 
+
+```{r data sources}
+
+#Obtain HydroSHEDS basins for Africa and extract the Kyoga lakes system (Lehner et al., 2008)
+#https://data.hydrosheds.org/file/hydrobasins/standard/hybas_af_lev01-12_v1c.zip
+#Kyoga lakes extracted for analysis
+
+kyoga <- st_read(dsn=system.file('extdata/hydrosheds', 'kyoga.shp', 
+                                 package = 'conspriorityr'), quiet = TRUE)
+
+
+#GBIF data archived in the package
+gbifdata <- gbif
+
+```
+
+```{r priortiyscores}
+#only selected water bodies: for only the priority scores
+cpifinal <- priorityindex(data = gbifdata, 
+                          habitat = 'waterbody', 
+                          species = 'species', 
+                          area = 'surfacearea', 
+                          iucn = 'iucnstatus')
+head(cpifinal)
+```
+
+```{r full output}
+#only selected water bodies: return full data output
+cpifull <- priorityindex(data = gbifdata, 
+                          habitat = 'waterbody', 
+                          species = 'species', 
+                          area = 'surfacearea', 
+                          iucn = 'iucnstatus',
+                          full = TRUE)
+head(cpifull)
+```
+
+
+## References
+
+1. Basooma, A., Nakiyende, H., Olokotum, M., Balirwa, J. S., Nkalubo, W., Musinguzi, L., & Natugonza, V. (2022). A novel index to aid in prioritizing habitats for site‐based conservation. Ecology and Evolution, 12(3), e8762.
+2. Lehner, B., Verdin, K., & Jarvis, A. (2008). New global hydrography derived from spaceborne elevation data. Eos, Transactions American Geophysical Union, 89(10), 93-94.
+3. Pebesma, E., & Bivand, R. (2023). Spatial Data Science: With Applications in R (1st
+  ed.). Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016
+4. Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.1.2, <https://CRAN.R-project.org/package=dplyr>.
+5. Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data
+  Manipulation_. R package version 1.1.2, <https://CRAN.R-project.org/package=dplyr>.
+
+### END
+
+
+
+
+
+
+
+
+
+
+
+
