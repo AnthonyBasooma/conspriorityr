@@ -61,8 +61,6 @@
 #' cpihabts_plt <- cpi_all(data=df_final, habitat='habitats', species='species',
 #' area='surface_area', iucn='iucn', plot=TRUE)
 #'
-#'
-#'
 #' data('gbif')
 #' gbif
 #'
@@ -79,7 +77,7 @@
 #'
 #' @author Anthony Basooma (bas4ster@gmail.com)
 #'
-cpi_all <- function(data, habitat, species, area, iucn, plot=NULL){
+priorityindex <- function(data, habitat, species, area, iucn, plot=NULL){
 
   if(missing(data)) stop('Data missing', call. = FALSE)
 
