@@ -13,7 +13,13 @@
 #' @param iucn A variable for species IUCN categories based on IUCN RedList (IUCN 2001).
 #' The package is currently tailored to IUCN Red List status assessments.
 #' @param select Particular habitat name to compute the priority scores for.
+#' @param subset A priority value to filter out particular ranges of priority values for a habitat.
 #' @param plot To visualize the a bar graph of priority score for each habitat.
+#' @param lat,lon latitude and longitude for plotting the priority maps.
+#' @param polygon A shapefile with the polygons of the habitats to allows visualise the priority scores.
+#' @param map logical To either plot priority map or not.
+#' @param full To return a full dataset with all data with the priority values attached for each habitat.
+#'
 #'
 #' @details
 #' For all species were weighted based on the IUCN Red List status.
@@ -30,7 +36,7 @@
 #' @importFrom utils install.packages
 #' @importFrom graphics barplot par
 #' @importFrom methods is
-#' @importFrom sf st_drop_geometry st_as_sf st_join
+#' @importFrom sf st_drop_geometry st_as_sf st_join st_crs
 #'
 #' @export
 #'
@@ -319,7 +325,7 @@ priorityindex <- function(data, habitat, species, area, iucn,
 
     if(!is.null(ggpkg2)){
 
-      #add with polgon of the habitats
+      #add with polygon of the habitats
 
       polycoord <- st_join(coord_final_sf, polygon)
 
@@ -331,7 +337,7 @@ priorityindex <- function(data, habitat, species, area, iucn,
 
         ggplot2::scale_fill_viridis_c(direction = 1)+
 
-        ggplot2::geom_sf_text(data = polycoord, ggplot2::aes(label = waterbody), size=2)+
+        ggplot2::geom_sf_text(data = polycoord, ggplot2::aes(label = habitat), size=2)+
 
         ggplot2::labs(x='Longitude', y='Latitude', fill='Priority scores')
 

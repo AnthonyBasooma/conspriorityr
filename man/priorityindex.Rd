@@ -37,9 +37,19 @@ extend of the habitat should be particular to it and not generalaised across the
 \item{iucn}{A variable for species IUCN categories based on IUCN RedList (IUCN 2001).
 The package is currently tailored to IUCN Red List status assessments.}
 
+\item{lat, lon}{latitude and longitude for plotting the priority maps.}
+
+\item{polygon}{A shapefile with the polygons of the habitats to allows visualise the priority scores.}
+
 \item{select}{Particular habitat name to compute the priority scores for.}
 
+\item{subset}{A priority value to filter out particular ranges of priority values for a habitat.}
+
 \item{plot}{To visualize the a bar graph of priority score for each habitat.}
+
+\item{full}{To return a full dataset with all data with the priority values attached for each habitat.}
+
+\item{map}{logical To either plot priority map or not.}
 }
 \value{
 Conservation priority score for one habitat form the data.
